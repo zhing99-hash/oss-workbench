@@ -1,0 +1,63 @@
+{
+  "name": "oss-workbench",
+  "version": "0.1.0",
+  "description": "A local-first, AI-assistant-native workbench for maintaining GitHub open-source projects.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tsx --test test/*.test.ts",
+    "build": "node scripts/build-ui.mjs && tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "github",
+    "mcp",
+    "ai",
+    "open-source",
+    "maintainer",
+    "mcp-apps"
+  ],
+  "author": "zhing99-hash",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "commander": "^15.1.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/ext-apps": "^2.0.4",
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "playwright-core": "^1.65.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
+  },
+  "type": "module",
+  "bin": {
+    "oss-workbench": "dist/index.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "files": [
+    "dist",
+    "adapters",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "docs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhing99-hash/oss-workbench.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhing99-hash/oss-workbench/issues"
+  },
+  "homepage": "https://github.com/zhing99-hash/oss-workbench#readme"
+}

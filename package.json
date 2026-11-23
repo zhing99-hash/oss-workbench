@@ -8,7 +8,7 @@
     "build": "node scripts/build-ui.mjs && tsc -p tsconfig.json",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "prepare": "npm run build",
+    "prepare": "node scripts/build-ui.mjs && tsc -p tsconfig.json",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -43,6 +43,7 @@
   },
   "files": [
     "dist",
+    "cordis.patch.yml",
     "adapters",
     "README.md",
     "LICENSE",
@@ -51,6 +52,11 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   },
   "repository": {
     "type": "git",

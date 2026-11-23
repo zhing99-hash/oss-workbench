@@ -209,7 +209,23 @@ oss-workbench install workbuddy
 
 ### DeepSeek Harness
 
-OSS Workbench 使用标准 MCP stdio 工具。先安装 DeepSeek Harness 的 MCP 客户端：
+OSS Workbench 使用标准 MCP stdio 工具。
+
+#### 方式一：作为 DSH 插件安装
+
+仓库声明了 `dsh.bundle`，可以整包装进 profile，安装后 `mcp__oss-workbench__*` 工具自动注册：
+
+```bash
+dsh plugin --profile web add github:zhing99-hash/oss-workbench
+```
+
+pnpm 默认不执行依赖的构建脚本，首次安装会提示需要允许本插件构建（`allowBuilds`），按提示在 profile 的 `pnpm-workspace.yaml` 里允许后重跑同一条命令即可。
+
+DSH 不会把 `GITHUB_TOKEN` / `GH_TOKEN` 透传给子进程，插件的 `cordis.patch.yml` 已显式转发这两个变量；也可以先运行 `oss-workbench auth --token <token>` 把 Token 存到本机，插件会自己读取。
+
+#### 方式二：手动写入 MCP 客户端配置
+
+先安装 DeepSeek Harness 的 MCP 客户端：
 
 ```bash
 dsh plugin --profile web add @deepseek-ai/dsh-mcp-client

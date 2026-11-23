@@ -1,0 +1,44 @@
+# oss-workbench — the GitHub open-source project workbench as a DeepSeek Harness bundle.
+#
+# One insert row mounts the oss-workbench MCP server over stdio through the MCP
+# client bridge shipped with dsh. Discovered tools register on ctx.tools:
+#   mcp__oss-workbench__workbench_open
+#   mcp__oss-workbench__workbench_scan
+#   mcp__oss-workbench__workbench_snapshot
+#   mcp__oss-workbench__project_list
+#   mcp__oss-workbench__account_status
+#   mcp__oss-workbench__task_prepare_action
+#   mcp__oss-workbench__task_commit_action
+#   mcp__oss-workbench__task_cancel_action
+#   mcp__oss-workbench__audit_list
+#
+# Authentication: the server reads GITHUB_TOKEN / GH_TOKEN from its environment
+# (or the token saved by `oss-workbench auth --token ...`); the stdio child
+# inherits the harness process environment, so exporting GITHUB_TOKEN before
+# starting dsh is enough. Without a token the tools still start and report the
+# missing authorization instead of failing activation.
+#
+# failOnStartupError: false keeps a missing npx, an offline machine or a failed
+# npx fetch from rejecting activation; the bridge logs it and reconnects. Set it
+# to true if a missing tool set must fail the plugin loudly instead.
+#
+# Override from a later layer by targeting this row id WITHOUT `insert`;
+# `config` is replaced wholesale, so restate every field:
+#
+#   - id: mcp-oss-workbench
+#     name: '@deepseek-ai/dsh-mcp-client'
+#     config:
+#       serverName: oss-workbench
+#       transport: stdio
+#       command: npx
+#       args: ["-y", "github:zhing99-hash/oss-workbench", "serve"]
+#
+- insert:
+    - id: mcp-oss-workbench
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: oss-workbench
+        transport: stdio
+        command: npx
+        args: ["-y", "github:zhing99-hash/oss-workbench", "serve"]
+        failOnStartupError: false
